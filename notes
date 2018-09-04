@@ -1,0 +1,57 @@
+zirong@zirong-desktop:~$ sudo systemctl start mongod
+zirong@zirong-desktop:~$ sudo systemctl status mongod
+● mongod.service - High-performance, schema-free document-oriented database
+   Loaded: loaded (/lib/systemd/system/mongod.service; disabled; vendor preset: 
+   Active: active (running) since Tue 2018-09-04 14:07:13 PDT; 13s ago
+     Docs: https://docs.mongodb.org/manual
+ Main PID: 6661 (mongod)
+   CGroup: /system.slice/mongod.service
+           └─6661 /usr/bin/mongod --quiet --config /etc/mongod.conf
+
+Sep 04 14:07:13 zirong-desktop systemd[1]: Started High-performance, schema-free
+zirong@zirong-desktop:~$ mongod
+2018-09-04T14:09:01.214-0700 I CONTROL  [initandlisten] MongoDB starting : pid=6720 port=27017 dbpath=/data/db 64-bit host=zirong-desktop
+2018-09-04T14:09:01.214-0700 I CONTROL  [initandlisten] db version v3.2.20
+2018-09-04T14:09:01.214-0700 I CONTROL  [initandlisten] git version: a7a144f40b70bfe290906eb33ff2714933544af8
+2018-09-04T14:09:01.214-0700 I CONTROL  [initandlisten] OpenSSL version: OpenSSL 1.0.2n  7 Dec 2017
+2018-09-04T14:09:01.214-0700 I CONTROL  [initandlisten] allocator: tcmalloc
+2018-09-04T14:09:01.214-0700 I CONTROL  [initandlisten] modules: none
+2018-09-04T14:09:01.214-0700 I CONTROL  [initandlisten] build environment:
+2018-09-04T14:09:01.214-0700 I CONTROL  [initandlisten]     distmod: ubuntu1604
+2018-09-04T14:09:01.214-0700 I CONTROL  [initandlisten]     distarch: x86_64
+2018-09-04T14:09:01.214-0700 I CONTROL  [initandlisten]     target_arch: x86_64
+2018-09-04T14:09:01.214-0700 I CONTROL  [initandlisten] options: {}
+2018-09-04T14:09:01.243-0700 E NETWORK  [initandlisten] listen(): bind() failed errno:98 Address already in use for socket: 0.0.0.0:27017
+2018-09-04T14:09:01.243-0700 E NETWORK  [initandlisten]   addr already in use
+2018-09-04T14:09:01.243-0700 E STORAGE  [initandlisten] Failed to set up sockets during startup.
+2018-09-04T14:09:01.243-0700 I CONTROL  [initandlisten] dbexit:  rc: 48
+zirong@zirong-desktop:~$ mongo
+MongoDB shell version: 3.2.20
+connecting to: test
+Welcome to the MongoDB shell.
+For interactive help, type "help".
+For more comprehensive documentation, see
+	http://docs.mongodb.org/
+Questions? Try the support group
+	http://groups.google.com/group/mongodb-user
+> show dbs
+local  0.000GB
+> use fullstack
+switched to db fullstack
+> show collections
+> db.students.insert({"name": "Jose", "mark": 99})
+WriteResult({ "nInserted" : 1 })
+> 
+
+> db.students.insert({"item": "chair", "price": 99.99, "age": 25})
+WriteResult({ "nInserted" : 1 })
+> db.students.find()
+{ "_id" : ObjectId("5b8ef9034d4afa70e673a059"), "name" : "Jose", "mark" : 99 }
+{ "_id" : ObjectId("5b8efa394d4afa70e673a05a"), "item" : "chair", "price" : 99.99, "age" : 25 }
+> db.students.remove({"item": "chair"})
+WriteResult({ "nRemoved" : 1 })
+> db.students.find()
+{ "_id" : ObjectId("5b8ef9034d4afa70e673a059"), "name" : "Jose", "mark" : 99 }
+> 
+
+
