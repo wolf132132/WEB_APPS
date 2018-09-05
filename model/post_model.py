@@ -1,13 +1,14 @@
 from database import Database
-
+import uuid
+import datetime
 
 class Post(object):
 
-    def __init__(self, blog_id, title, content, author, date, id):
+    def __init__(self, blog_id, title, content, author, date=datetime.datetime.utcnow(), id=None):
         self.title = title
         self.content = content
         self.author = author
-        self.id = id
+        self.id = uuid.uuid4().hex if id is None else id
         self.blog_id = blog_id
         self.date = date
 
@@ -18,4 +19,10 @@ class Post(object):
         return {'id': self.id, 'blog_id': self.blog_id, 'author': self.author,
                 'content': self.content, 'title': self.title, 'create_date': self.date}
 
+    @staticmethod
+    def from_mongo(id):
+        return Database.find_one(collection='posts', query={'id': id})
 
+    @staticmethod
+    def from_blog(blog_id):
+        return [post for post in Database.find(collection='posts', query={'blog_id': blog_id})]

@@ -4,9 +4,6 @@ from model.post_model import Post
 
 Database.initialize()
 
-post = Post()
-post2 = Post()
+post = Post(blog_id="123", title="first", content="sample", author="zirong")
 
-print(post.content)
-print(post2.content)
-
+post.save_to_mongo()

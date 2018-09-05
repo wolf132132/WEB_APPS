@@ -15,12 +15,12 @@ class Database(object):
         Database.DATABASE[collection].insert(data)
 
     @staticmethod
-    def find(collection, data):
-        Database.DATABASE[collection].find(data)
+    def find(collection, query):
+        Database.DATABASE[collection].find(query)
 
     @staticmethod
-    def find_one(collection, data):
-        Database.DATABASE[collection].find_one(data)
+    def find_one(collection, query):
+        Database.DATABASE[collection].find_one(query)
 
 
 
